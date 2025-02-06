@@ -36,12 +36,26 @@ function sortearAmigo() {
     actualizarLista();
 }
 
-function mostrarPopup(titulo, nombre = "") {
-    document.getElementById("popup-title").textContent = titulo;
-    document.getElementById("popup-name").textContent = nombre;
-    document.getElementById("popup").style.display = "flex";
+function mostrarPopup(titulo, nombre) {
+    document.getElementById("popup-title").innerText = titulo;
+    document.getElementById("popup-name").innerText = nombre;
+    document.getElementById("popup").style.display = "block";
+    document.querySelector(".input-group button").classList.add("hidden"); // Ocultar botón
+
+    // Agregar event listener para cerrar el popup al presionar Enter
+    document.addEventListener("keydown", cerrarPopupConEnter);
 }
 
 function cerrarPopup() {
     document.getElementById("popup").style.display = "none";
+    document.querySelector(".input-group button").classList.remove("hidden"); // Mostrar botón
+
+    // Remover event listener para evitar múltiples bindings
+    document.removeEventListener("keydown", cerrarPopupConEnter);
+}
+
+function cerrarPopupConEnter(event) {
+    if (event.key === "Enter") {
+        cerrarPopup();
+    }
 }
